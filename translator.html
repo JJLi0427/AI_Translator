@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <p>🔐 AI能力来自部署的端侧服务，我们不会上传或保留您的任何信息</p>
+            <button id="confirmBtn">确认</button>
+        </div>
+    </div>
+    <img src="app.png" alt="App Icon" class="app-icon">
+    <div class="container">
+        <div class="title">AI 翻译器</div>
+        <form action="/translate" method="POST">
+            <div class="input-output">
+                <textarea id="inputText" name="inputText" placeholder="在这里输入..."></textarea>
+                <textarea id="outputText" placeholder="Translation will appear here..." readonly></textarea>
+            </div>
+            <div class="controls">
+                <div>
+                    <label for="inputLang">输入语言:</label>
+                    <select id="inputLang" name="inputLang">
+                        <option value="zh">中文</option>
+                        <option value="en">英语</option>
+                        <option value="ja">日语</option>
+                        <option value="ko">韩文</option>
+                    </select>
+                    <label for="outputLang">目标语言:</label>
+                    <select id="outputLang" name="outputLang">
+                        <option value="en">英语</option>
+                        <option value="zh">中文</option>
+                        <option value="ja">日语</option>
+                        <option value="ko">韩文</option>
+                    </select>
+                </div>
+                <button type="submit" id="translateBtn">Translate</button>
+            </div>
+        </form>
+    </div>
+    <div class="tip">
+        <span>💡 直接输入翻译需求让AI生成，或按照选择的语言和输入文本翻译</span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
