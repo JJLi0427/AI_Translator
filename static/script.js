@@ -25,7 +25,7 @@ document.getElementById('translateBtn').addEventListener('click', function(event
     })
     .then(response => response.json())
     .then(data => {
-        const translatedText = data.choices[0].message.content;
+        const translatedText = data.content;
         document.getElementById('outputText').value = translatedText;
     })
     .catch(error => console.error('Error:', error));
