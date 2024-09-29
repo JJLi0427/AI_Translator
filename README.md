@@ -1,4 +1,4 @@
-# AI_Competition
+# AI_Translator
 For Shengteng AI Competition, to build a embedded AI software
 
 1. Artificial intelligence from Qwen:0.5b model, run by ollama in originpai.
