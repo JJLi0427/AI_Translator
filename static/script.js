@@ -11,6 +11,10 @@ document.getElementById('translateBtn').addEventListener('click', function(event
     const inputText = document.getElementById('inputText').value;
     const inputLang = document.getElementById('inputLang').value;
     const outputLang = document.getElementById('outputLang').value;
+    const transModel = document.getElementById('transModel').value;
+    
+    // 显示加载动画
+    document.getElementById('loading').style.display = 'block';
     
     fetch('/translate', {
         method: 'POST',
@@ -20,13 +24,22 @@ document.getElementById('translateBtn').addEventListener('click', function(event
         body: new URLSearchParams({
             inputText: inputText,
             inputLang: inputLang,
-            outputLang: outputLang
+            outputLang: outputLang,
+            transModel: transModel
         })
     })
     .then(response => response.json())
     .then(data => {
         const translatedText = data.content;
         document.getElementById('outputText').value = translatedText;
+        
+        // 隐藏加载动画
+        document.getElementById('loading').style.display = 'none';
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        
+        // 隐藏加载动画
+        document.getElementById('loading').style.display = 'none';
+    });
 });

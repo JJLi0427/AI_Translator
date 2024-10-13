@@ -10,12 +10,13 @@ logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
 PROMPT_1="en指英语,cn指中文,ja指日文,ko指韩语"
-PROMPT_2="你是会理解用户语义的翻译官,如果用户输入有翻译需求的场景,你会理解并做出合适的翻译"
-PROMPT_3="例如你收到: input_text:我在美国的麦当劳想向店员点一桶炸鸡, form cn to en; 这个是用户有场景翻译的需求,你可以这样子回答: I want a bucket of fried chicken."
-PROMPT_4="如果你理解到用户只是输入需要翻译的普通的一句话或单词,你也可以正确翻译到指定的语言."
-PROMPT_5="例如你收到: input_text:我想要一桶炸鸡, form cn to en; 这个就是指定语言的翻译需求,你可以回答: I want a bucket of fried chicken."
-PROMPT_6="下面是获取到的用户的实际输入:"
-PROMPT_TEXT = f"{PROMPT_1}\n{PROMPT_2}\n{PROMPT_3}\n{PROMPT_4}\n{PROMPT_5}\n{PROMPT_6}"
+PROMPT_2="model_1是将内容翻译到指定语言的模式,model_2是按照场景需求给出对应语言内容的模式."
+PROMPT_3="示例: input:我想要一桶炸鸡; from cn to en; model_1"
+PROMPT_4="应该回答: I want a bucket of fried chicken."
+PROMPT_5="示例: input:我在麦当劳店里想向店员点一桶炸鸡; from cn to en; model_2"
+PROMPT_6="应该回答: Hello, I want a bucket of fried chicken."
+PROMPT_7="下面是一个获取到的实际数据,给出最终的回答: "
+PROMPT_TEXT = f"{PROMPT_1}\n{PROMPT_2} {PROMPT_3}\n{PROMPT_4} {PROMPT_5}\n{PROMPT_6}"
 
 @app.route('/')
 def index():
@@ -26,9 +27,10 @@ def translate():
     input_text = request.form['inputText']
     input_lang = request.form['inputLang']
     output_lang = request.form['outputLang']
+    trans_model = request.form['transModel']
     
-    logging.info(f"Input text: {input_text}, Input language: {input_lang}, Output language: {output_lang}")
-    introduction_text = f"input_text: {input_text}, from {input_lang} to {output_lang}"
+    logging.info(f"Input text:{input_text}, Input language: {input_lang}, Output language: {output_lang}")
+    introduction_text = f"###input:{input_text}; from {input_lang} to {output_lang}; {trans_model}"
     # TODO: Add translation logic here
     res = requests.post(
         "http://0.0.0.0:11434/api/chat",
